@@ -1,6 +1,8 @@
 import React, {Component} from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
+import { getAutomaticTypeDirectiveNames } from 'typescript'
+import { Z_BLOCK } from 'zlib'
 
 
 // Body: use padding to adjust Bar's position 
@@ -66,7 +68,10 @@ export default class ProgressBar extends React.Component {
     this.bar = {
         bar1: {
           width: `${this.props.mastered / this.total * 100}%`,
-          background: "rgb(85, 162, 30)",
+          background: document.getElementsByClassName === "hideMe"? "none" : "rgb(85, 162, 30)",
+          // Question 2: How to get a DOM element? Want to achieve: 
+          //    if <div> has text, let background be 'none'
+          //    if <div> has no text (color bar), let background be 'green'
         },
         bar2: {
           width: `${this.props.familiar / this.total * 100}%`,
@@ -81,13 +86,12 @@ export default class ProgressBar extends React.Component {
           background: "rgb(255, 195, 0)",
         }}
 
-        this.text = {
+    this.text = {
           text1: {
             width: `${this.props.mastered / this.total * 100}%`,
             color: "rgb(85, 162, 30)",
           },
           text2: {
-
             width: `${this.props.familiar / this.total * 100}%`,
             color: "rgb(141, 207, 84)",
           },
@@ -98,22 +102,20 @@ export default class ProgressBar extends React.Component {
           text4: {
             width: `${this.props.bonus / this.total * 100}%`,
             color: "rgb(255, 195, 0)",
+            display: "block"
           }
-
       }
     }
 
-  // setbar = (percent) => {
-  //   const newbar = {
-  //     opacity: '1',
-  //     width: `${percent}%`,
-  //     background: 'black',
-  //   }
-  //   this.setbar({bar: newbar})
-  // }
-
+  //Question 1: In render method, how to change state? Want to achieve:
+  //    When props.bonus === 0, don't display 'text4'
 
   render(){
+
+    // if(this.props.bonus === 0) {
+    //   this.setState(this.text.text4: {display: "none"})
+    // }
+
     return (
       <Body>
         
@@ -129,6 +131,9 @@ export default class ProgressBar extends React.Component {
           <Text style = {this.text.text2}> {this.props.familiar} familiar</Text>
           <Text style = {this.text.text3}> {this.props.remaining} remaining</Text>
           {this.props.bonus > 0 && <Text style = {this.text.text4}> {this.props.bonus}  bonus!</Text>}
+          
+          <Text className="hideMe" style = {this.bar.bar1}> {this.props.remaining} last</Text>
+
         </TextContainer>
 
       </Body>
