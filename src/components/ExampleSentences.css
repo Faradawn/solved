@@ -1,0 +1,16 @@
+.ExampleCard{
+  max-width: 200px;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 3px 5px 15px 0px #30354512;
+  transition: 200ms ease;
+  padding: 15px 25px 20px;
+  justify-content: left;
+}
+.ExampleCard:hover{
+  box-shadow: 2px 4px 10px 0px #30354512;
+  transition: 200ms ease;
+  
+  
+}
+
